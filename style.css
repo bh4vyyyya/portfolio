@@ -86,30 +86,61 @@ nav {
   border-bottom: 1px solid var(--line);
 }
 
-nav::before {
-  content: "";
-  position: absolute;
-  left: var(--gutter);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--text-faint);
-  box-shadow: 12px 0 0 var(--text-faint), 24px 0 0 var(--text-faint);
-  opacity: 0.5;
-}
-
 .logo {
-  margin-left: 76px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--font-mono);
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--text);
+  color: #ffffff;
   letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
-.logo::before { content: "~/"; color: var(--text-faint); }
+.logo:hover {
+  opacity: 0.9;
+}
+
+.logo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.logo:hover .logo-icon {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: var(--surface-2);
+}
+
+.logo-icon svg {
+  display: block;
+  width: 15px;
+  height: 13px;
+}
+
+.logo-icon .prompt-chevron,
+.logo-icon .prompt-cursor {
+  stroke: #ffffff;
+}
+
+.logo-text {
+  color: #ffffff;
+}
+
+.logo-text::before {
+  content: "~/";
+  color: var(--text-faint);
+  margin-right: 2px;
+}
 
 .nav-links { display: flex; gap: 28px; margin-left: auto; }
 
@@ -212,13 +243,25 @@ h1::after {
 
 .subtitle { font-family: var(--font-mono); font-size: 0.95rem; color: var(--text-dim); margin: 0; text-align: left; }
 .subtitle::before { content: "// "; color: var(--text-faint); }
+.subtitle.is-typing::after {
+  content: " ▋";
+  color: var(--amber);
+  font-size: 0.82em;
+  animation: blink 0.7s steps(1) infinite;
+}
 
 /* ==========================================================================
    ABOUT
    ========================================================================== */
 
-.about { color: var(--text-dim); font-size: 1rem; max-width: 62ch; white-space: pre-line; }
-.about strong, .about b { color: var(--text); }
+#about p, .about { color: var(--text-dim); font-size: 1rem; max-width: 62ch; }
+#about p.is-typing::after {
+  content: " ▋";
+  color: var(--amber);
+  font-size: 0.82em;
+  animation: blink 0.7s steps(1) infinite;
+}
+#about strong, #about b, .about strong, .about b { color: var(--text); }
 
 /* ==========================================================================
    PROJECTS — read like a directory listing
@@ -280,6 +323,72 @@ h1::after {
 .contact a:hover { border-color: var(--amber); color: var(--amber); }
 
 /* ==========================================================================
+   ARCADE // 3D RETRO TV TERMINAL
+   Showcase window: wide layout, generous stage, zero clipping.
+   ========================================================================== */
+
+#arcade {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 48px var(--gutter) 64px;
+}
+
+.arcade-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.arcade-header {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.arcade-header h2 {
+  margin: 0;
+}
+
+.arcade-hints {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+
+#tv-stage {
+  width: 100%;
+  height: clamp(480px, 72vh, 620px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  position: relative;
+  border: none;
+  outline: none;
+  background: transparent !important;
+}
+
+#tv-stage canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+  background: transparent !important;
+}
+
+/* ==========================================================================
    FOOTER
    ========================================================================== */
 
@@ -299,10 +408,9 @@ footer {
 
 @media (max-width: 640px) {
   nav { flex-wrap: wrap; padding: 14px var(--gutter); }
-  nav::before { display: none; }
-  .logo { margin-left: 0; }
   .nav-links { gap: 18px; order: 3; width: 100%; padding-top: 10px; border-top: 1px solid var(--line); margin-top: 10px; }
   section:first-child { padding-top: 48px; }
+  #tv-stage { height: clamp(360px, 60vh, 460px); }
 }
 
 /* ==========================================================================
@@ -318,4 +426,78 @@ a:focus-visible, .github-btn:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   h1::after { animation: none; }
   * { transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* ==========================================================================
+   TERMINAL CUSTOM CURSOR (>_)
+   Pure white, monospace, zero gradients.
+   ========================================================================== */
+
+@media (pointer: fine) {
+  body.custom-cursor-enabled,
+  body.custom-cursor-enabled * {
+    cursor: none !important;
+  }
+}
+
+.terminal-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  font-family: var(--font-mono), monospace;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  color: #ffffff;
+  background: transparent;
+  user-select: none;
+  opacity: 0;
+  transform: translate3d(-100px, -100px, 0);
+  /* Apex of '>' points directly at the pointer hotspot */
+  margin-top: -2px;
+  margin-left: -1px;
+  transition: opacity 0.15s ease;
+  will-change: transform;
+  white-space: nowrap;
+}
+
+.terminal-cursor .cursor-content {
+  display: inline-block;
+  transform-origin: top left;
+  transition: transform 0.08s ease;
+}
+
+.terminal-cursor .cursor-arrow {
+  color: #ffffff;
+}
+
+.terminal-cursor .cursor-char {
+  color: #ffffff;
+  display: inline-block;
+  animation: cursor-blink 0.9s steps(1) infinite;
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Hover over clickable links/buttons */
+.terminal-cursor.is-hover .cursor-char {
+  animation: none;
+  opacity: 1;
+}
+
+/* Click feedback */
+.terminal-cursor.is-active .cursor-content {
+  transform: scale(0.85);
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .terminal-cursor {
+    display: none !important;
+  }
 }

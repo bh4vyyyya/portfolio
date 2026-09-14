@@ -9,12 +9,21 @@
 </head>
 <body>
     <nav>
-    <a href="#bhavya" class="logo">bhavyyyya</a>
+    <a href="#bhavya" class="logo" aria-label="bhavyyyya home">
+        <span class="logo-icon" aria-hidden="true">
+            <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 3L8 8L2 13" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="prompt-chevron"/>
+                <line x1="10.5" y1="13" x2="16.5" y2="13" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" class="prompt-cursor"/>
+            </svg>
+        </span>
+        <span class="logo-text">bhavyyyya</span>
+    </a>
 
     <div class="nav-links">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
+        <a href="#arcade">Arcade</a>
     </div>
 
     <a href="https://github.com/bh4vyyyya"
@@ -36,38 +45,36 @@
       
     </section >
 
-    <section id="about">
-        <h2>About  </h2>
+        <section id="about">
+        <h2>About</h2>
 
         <p>
-            Hi introducing Y'all to Bhavya,A student 
+            Hi introducing Y'all to Bhavya, A student 
             of computer Engineering,
             <br>
             Also a developer/builder who can't code without Chai(!=ChaiTea),
-            enjoy experimenting with graphics,networking 
+            enjoy experimenting with graphics, networking 
             and breaking working code just to debug it again lol!
-
-        
         </p>
+    </section>
 
     <section id="projects">
         <h2>Projects</h2>
         <div class="projects">
             <h3>
-                <a href="https://bh4vyyyya.github.io/TierPix/">TierPix</a>
+                <a href="https://bh4vyyyya.github.io/TierPix/" target="_blank">TierPix</a>
             </h3>
-                <p> A random image tier rating platform
-            
+            <p>A random image tier rating platform</p>
         </div>
-         <div class="project">
-            <h3><a href="https://bh4vyyyya.github.io/NeuralChess/">NeuralChess</a></h3>
+        <div class="project">
+            <h3><a href="https://bh4vyyyya.github.io/NeuralChess/" target="_blank">NeuralChess</a></h3>
             <p>
                 A chess project focused on gameplay,
                 Chess engine predictions, and learning.
             </p>
         </div>
         <div class="project">
-            <h3><a href="https://github.com/bh4vyyyya/PocketRig">PocketRig</a></h3>
+            <h3><a href="https://github.com/bh4vyyyya/PocketRig" target="_blank">PocketRig</a></h3>
             <p>
                 Turn a phone into a game controller for PC.
             </p>
@@ -79,7 +86,7 @@
 
         <p>
             GitHub:
-            <a href="https://github.com/bh4vyyyya">
+            <a href="https://github.com/bh4vyyyya" target="_blank">
                 github.com/bh4vyyyya    
             </a>
         </p>    
@@ -90,11 +97,29 @@
                 bhavyyyya30@gmail.com
             </a>
         </p>
-
     </section>
-
-    <footer>© 2026 Bhavya Asoriya</footer>
 </div>
+
+<section id="arcade">
+    <div class="arcade-wrapper">
+        <div class="arcade-header">
+            <h2>arcade // retro_tv.exe</h2>
+            <div class="arcade-hints">
+                <span>[TOGGLE / P] POWER</span>
+                <span>[1-4 / CLICK] SELECT GAME</span>
+                <span>[ARROWS/WASD] MOVE</span>
+                <span>[SPACE] ACTION</span>
+                <span>[ESC] MENU</span>
+            </div>
+        </div>
+        <div id="tv-stage"></div>
+    </div>
+</section>
+
+<footer>© 2026 Bhavya Asoriya</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="tv-arcade.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
 
